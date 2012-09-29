@@ -37,7 +37,11 @@ module Rack::Insight
       toolbar = render
       toolbar.force_encoding('UTF-8') if RUBY_VERSION > '1.9.0'
 
-      full_body.sub! /<\/body>/, toolbar + "</body>"
+      # install at bottom
+      # full_body.sub! /<\/body>/, toolbar + "</body>"
+      
+      # install at top
+      full_body.sub! /<(body[^>]*)>/, "\1#{toolbar}"
 
       response["Content-Length"] = full_body.size.to_s
 
